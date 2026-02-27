@@ -1,0 +1,58 @@
+body{
+    margin:0;
+    font-family:Poppins, sans-serif;
+    background:#f5f6fa;
+}
+
+/* Navbar */
+.navbar{
+    height:60px;
+    background:#667eea;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 30px;
+    font-weight:bold;
+}
+
+/* Layout */
+.layout{
+    display:flex;
+}
+
+/* Sidebar */
+.sidebar{
+    width:220px;
+    height:calc(100vh - 60px);
+    background:#2f3640;
+    color:white;
+    padding:20px;
+}
+
+.sidebar a{
+    display:block;
+    color:white;
+    text-decoration:none;
+    padding:10px;
+    border-radius:8px;
+    margin-bottom:10px;
+}
+
+.sidebar a:hover{
+    background:#40739e;
+}
+
+/* Content */
+.content{
+    flex:1;
+    padding:30px;
+}
+
+/* Card */
+.card{
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.1);
+}

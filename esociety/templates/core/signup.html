@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Signup - E Society</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<div class="auth-container">
+    <form method="POST" class="auth-box">
+        {% csrf_token %}
+        <h2>Create Account</h2>
+
+        <input type="text" name="name" placeholder="Full Name" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="text" name="phone" placeholder="Phone" required>
+        <input type="password" name="password" placeholder="Password" required>
+
+        <select name="role">
+            <option value="Resident">Resident</option>
+            <option value="Admin">Admin</option>
+        </select>
+
+        <button type="submit">Sign Up</button>
+
+        <p>Already have account? <a href="{% url 'login' %}">Login</a></p>
+    </form>
+</div>
+
+</body>
+</html>

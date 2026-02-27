@@ -1,0 +1,9 @@
+<div class="sidebar">
+<a href="{% url 'dashboard' %}">Dashboard</a>
+<a href="{% url 'complaint_list' %}">Complaints</a>
+<a href="{% url 'maintenance_list' %}">Maintenance</a>
+</div>
+{% if request.session.role == "Admin" %}
+<a href="{% url 'society_list' %}">Society</a>
+<a href="{% url 'notice_list' %}">Notices</a>
+{% endif %}
