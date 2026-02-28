@@ -1,49 +1,159 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 
-class Society(models.Model):
-    society_name = models.CharField(max_length=100)
-    address = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
+# =========================
+# Custom User Model
+# =========================
+class User(AbstractUser):
 
+    username = None
+    email = models.EmailField(unique=True)
 
-class Member(models.Model):
     ROLE_CHOICES = (
-        ('Admin','Admin'),
-        ('Resident','Resident'),
+        ('SUPER_ADMIN', 'Super Admin'),
+        ('SOCIETY_ADMIN', 'Society Admin'),
+        ('RESIDENT', 'Resident'),
     )
 
-    society = models.ForeignKey(Society, on_delete=models.CASCADE, null=True)
-    name = models.CharField(max_length=100)
-    email = models.EmailField(unique=True)
-    phone = models.CharField(max_length=15)
-    password = models.CharField(max_length=255)
-    role = models.CharField(max_length=20, choices=ROLE_CHOICES)
+    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='RESIDENT')
+    society = models.ForeignKey('Society', on_delete=models.SET_NULL, null=True, blank=True)
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
+    def __str__(self):
+        return self.email
 
 
-class Flat(models.Model):
-    society = models.ForeignKey(Society, on_delete=models.CASCADE)
-    flat_number = models.CharField(max_length=10)
-    block_name = models.CharField(max_length=50)
-
-
-class Maintenance(models.Model):
-    flat = models.ForeignKey(Flat, on_delete=models.CASCADE)
-    amount = models.DecimalField(max_digits=8, decimal_places=2)
-    due_date = models.DateField()
-    status = models.BooleanField(default=False)
-
-
-class Complaint(models.Model):
-    member = models.ForeignKey(Member, on_delete=models.CASCADE)
-    subject = models.CharField(max_length=150)
-    description = models.TextField()
-    status = models.CharField(max_length=50, default="Open")
+# =========================
+# Society
+# =========================
+class Society(models.Model):
+    name = models.CharField(max_length=150)
+    society_code = models.CharField(max_length=10, unique=True)
+    address = models.TextField()
+    city = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.name
 
-class Notice(models.Model):
-    title = models.CharField(max_length=150)
+
+# =========================
+# Flat
+# =========================
+class Flat(models.Model):
+    society = models.ForeignKey(Society, on_delete=models.CASCADE)
+    flat_number = models.CharField(max_length=20)
+    block_name = models.CharField(max_length=50)
+
+    STATUS_CHOICES = (
+        ('VACANT', 'Vacant'),
+        ('OCCUPIED', 'Occupied'),
+    )
+
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='VACANT')
+
+    def __str__(self):
+        return f"{self.block_name}-{self.flat_number}"
+
+
+# =========================
+# Member
+# =========================
+class Member(models.Model):
+    society = models.ForeignKey(Society, on_delete=models.CASCADE)
+    flat = models.ForeignKey(Flat, on_delete=models.CASCADE, related_name="members")
+    name = models.CharField(max_length=150)
+    phone = models.CharField(max_length=15)
+    is_primary = models.BooleanField(default=False)  # main resident
+
+    def __str__(self):
+        return self.name
+
+
+# =========================
+# Maintenance
+# =========================
+class Maintenance(models.Model):
+    society = models.ForeignKey(Society, on_delete=models.CASCADE)
+    flat = models.ForeignKey(Flat, on_delete=models.CASCADE)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    month = models.CharField(max_length=20)
+
+    STATUS_CHOICES = (
+        ('PENDING', 'Pending'),
+        ('PAID', 'Paid'),
+    )
+
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='PENDING')
+
+    def __str__(self):
+        return f"{self.flat} - {self.month}"
+
+
+# =========================
+# Payment
+# =========================
+class Payment(models.Model):
+    maintenance = models.OneToOneField(Maintenance, on_delete=models.CASCADE)
+    payment_date = models.DateTimeField(auto_now_add=True)
+    payment_mode = models.CharField(max_length=50)
+    transaction_id = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.transaction_id
+
+
+# =========================
+# Complaint
+# =========================
+class Complaint(models.Model):
+    society = models.ForeignKey(Society, on_delete=models.CASCADE)
+    flat = models.ForeignKey(Flat, on_delete=models.CASCADE)
+    title = models.CharField(max_length=200)
     description = models.TextField()
-    publish_date = models.DateField()
-    status = models.BooleanField(default=True)
+
+    STATUS_CHOICES = (
+        ('PENDING', 'Pending'),
+        ('RESOLVED', 'Resolved'),
+    )
+
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='PENDING')
+    assigned_to = models.CharField(max_length=100, blank=True, null=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
+
+
+# =========================
+# Notice
+# =========================
+class Notice(models.Model):
+    society = models.ForeignKey(Society, on_delete=models.CASCADE)
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+    expiry_date = models.DateField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
+
+
+# =========================
+# Visitor
+# =========================
+class Visitor(models.Model):
+    society = models.ForeignKey(Society, on_delete=models.CASCADE)
+    flat = models.ForeignKey(Flat, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    phone = models.CharField(max_length=15)
+    purpose = models.CharField(max_length=200)
+    entry_time = models.DateTimeField(auto_now_add=True)
+    exit_time = models.DateTimeField(null=True, blank=True)
+
+    def __str__(self):
+        return self.name
