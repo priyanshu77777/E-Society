@@ -45,6 +45,9 @@ class Society(models.Model):
 # =========================
 class Flat(models.Model):
     society = models.ForeignKey(Society, on_delete=models.CASCADE)
+
+    resident = models.ForeignKey(User,on_delete=models.SET_NULL,null=True,blank=True,related_name="flats")
+
     flat_number = models.CharField(max_length=20)
     block_name = models.CharField(max_length=50)
 
@@ -110,23 +113,34 @@ class Payment(models.Model):
 # Complaint
 # =========================
 class Complaint(models.Model):
-    society = models.ForeignKey(Society, on_delete=models.CASCADE)
-    flat = models.ForeignKey(Flat, on_delete=models.CASCADE)
-    title = models.CharField(max_length=200)
-    description = models.TextField()
 
     STATUS_CHOICES = (
         ('PENDING', 'Pending'),
+        ('IN_PROGRESS', 'In Progress'),
         ('RESOLVED', 'Resolved'),
+        ('REJECTED', 'Rejected'),
     )
 
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='PENDING')
+    society = models.ForeignKey(Society, on_delete=models.CASCADE)
+    flat = models.ForeignKey(Flat, on_delete=models.CASCADE)
+
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default='PENDING'
+    )
+
     assigned_to = models.CharField(max_length=100, blank=True, null=True)
+    admin_remarks = models.TextField(blank=True, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.title
+        return f"{self.title} - {self.status}"
 
 
 # =========================
@@ -157,3 +171,4 @@ class Visitor(models.Model):
 
     def __str__(self):
         return self.name
+    

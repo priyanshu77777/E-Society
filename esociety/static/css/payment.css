@@ -1,0 +1,16 @@
+.payment-card {
+    padding: 25px;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+}
+
+.payment-success {
+    color: #16a34a;
+    font-weight: 600;
+}
+
+.payment-failed {
+    color: #dc2626;
+    font-weight: 600;
+}

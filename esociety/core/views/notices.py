@@ -1,28 +1,38 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from core.models import Notice
-from core.decorators import role_required
+from core.forms import NoticeForm
 
 
-@role_required(["SOCIETY_ADMIN"])
-def add_notice(request):
-    if request.method == "POST":
-        title = request.POST.get("title")
-        content = request.POST.get("content")
-
-        Notice.objects.create(
-            society=request.user.society,
-            title=title,
-            content=content
-        )
-
-        return redirect("society_admin_dashboard")
-
-    return render(request, "notices/add_notice.html")
-
-
-@role_required(["RESIDENT"])
+@login_required
 def notice_list(request):
-    notices = Notice.objects.filter(
-        society=request.user.society
-    )
+    society = request.user.society
+    notices = Notice.objects.filter(society=society).order_by("-created_at")
+
     return render(request, "notices/list.html", {"notices": notices})
+
+
+@login_required
+def notice_create(request):
+    society = request.user.society
+
+    if request.method == "POST":
+        form = NoticeForm(request.POST)
+        if form.is_valid():
+            notice = form.save(commit=False)
+            notice.society = society
+            notice.save()
+            return redirect("notice_list")
+    else:
+        form = NoticeForm()
+
+    return render(request, "notices/create.html", {"form": form})
+
+
+@login_required
+def notice_delete(request, pk):
+    society = request.user.society
+    notice = get_object_or_404(Notice, pk=pk, society=society)
+
+    notice.delete()
+    return redirect("notice_list")

@@ -15,7 +15,7 @@ def role_required(allowed_roles=[]):
         return wrapper
     return decorator
 
-def superadmin_required(view_func):
+def super_admin_required(view_func):
     @wraps(view_func)
     def wrapper(request, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -28,7 +28,7 @@ def superadmin_required(view_func):
     return wrapper
 
 
-def societyadmin_required(view_func):
+def society_admin_required(view_func):
     @wraps(view_func)
     def wrapper(request, *args, **kwargs):
         if not request.user.is_authenticated:

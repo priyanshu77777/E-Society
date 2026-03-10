@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3 class="mb-4">Edit Society Details</h3>
+
+<div class="card p-4">
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit" class="btn btn-primary">
+            Update
+        </button>
+
+        <a href="{% url 'society_detail' %}" 
+           class="btn btn-secondary">
+           Cancel
+        </a>
+    </form>
+</div>
+
+{% endblock %}

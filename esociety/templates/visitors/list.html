@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="d-flex justify-content-between mb-3">
+    <h3>Visitors</h3>
+    <a href="{% url 'visitor_create' %}" class="btn btn-primary">
+        Add Visitor
+    </a>
+</div>
+
+<div class="card p-3">
+    <table class="table table-bordered table-hover">
+        <thead class="table-light">
+            <tr>
+                <th>Name</th>
+                <th>Flat</th>
+                <th>Contact</th>
+                <th>Visit Date</th>
+                <th>Purpose</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for visitor in visitors %}
+            <tr>
+                <td>{{ visitor.name }}</td>
+                <td>{{ visitor.flat }}</td>
+                <td>{{ visitor.contact_number }}</td>
+                <td>{{ visitor.visit_date }}</td>
+                <td>{{ visitor.purpose }}</td>
+                <td>
+                    <a href="{% url 'visitor_delete' visitor.id %}" 
+                       class="btn btn-sm btn-danger"
+                       onclick="return confirm('Remove this visitor record?')">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" class="text-center">
+                    No visitors recorded
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

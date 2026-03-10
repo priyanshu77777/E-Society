@@ -1,26 +1,50 @@
-from django.contrib.auth.forms import UserCreationForm
-from .models import Member,Complaint
 from django import forms
+from core.models import (Member,Flat,Complaint,Maintenance,Notice,Society,Visitor,Payment)
+from django.contrib.auth.models import User
 
-class UserSignupForm(UserCreationForm):
+
+class MemberForm(forms.ModelForm):
     class Meta:
         model = Member
-        fields = ['email','role','password1','password2']
-        widgets = {
-            'password1':forms.PasswordInput(),
-            'password2':forms.PasswordInput(),
-        }
+        exclude = ["society"]
 
-class UserLoginForm(forms.Form):
-    email = forms.EmailField()
-    password = forms.CharField(widget=forms.PasswordInput())
+
+class FlatForm(forms.ModelForm):
+    class Meta:
+        model = Flat
+        exclude = ["society"]
+
 
 class ComplaintForm(forms.ModelForm):
     class Meta:
         model = Complaint
-        fields = ["subject","description"]
-        widgets = {
-            "subject": forms.TextInput(attrs={"class":"input"}),
-            "description": forms.Textarea(attrs={"class":"input"}),
-        }
-    
+        exclude = ["society", "created_by"]
+
+
+class MaintenanceForm(forms.ModelForm):
+    class Meta:
+        model = Maintenance
+        exclude = ["society"]
+
+
+class NoticeForm(forms.ModelForm):
+    class Meta:
+        model = Notice
+        exclude = ["society"]
+
+
+class SocietyForm(forms.ModelForm):
+    class Meta:
+        model = Society
+        fields = "__all__"
+
+class VisitorForm(forms.ModelForm):
+    class Meta:
+        model = Visitor
+        exclude = ["society"]
+
+class PaymentForm(forms.ModelForm):
+    class Meta:
+        model = Payment
+        exclude = ["society"]
+

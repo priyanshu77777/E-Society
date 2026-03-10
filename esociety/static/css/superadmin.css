@@ -1,0 +1,50 @@
+/* Superadmin Special Header */
+.superadmin-header {
+    background: linear-gradient(135deg, #111827, #1f2937);
+    color: white;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 25px;
+}
+
+/* Admin Stat Cards */
+.admin-card {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    transition: 0.3s ease;
+}
+
+.admin-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Admin Table */
+.admin-table thead {
+    background: #111827;
+    color: white;
+}
+
+.admin-table tbody tr:hover {
+    background: #f3f4f6;
+}
+
+/* Role Badge */
+.role-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.role-admin {
+    background: #ef4444;
+    color: white;
+}
+
+.role-member {
+    background: #22c55e;
+    color: white;
+}

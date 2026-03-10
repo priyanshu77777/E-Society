@@ -6,4 +6,3 @@ from .members import *
 from .complaints import *
 from .maintenance import *
 from .notices import *
-from .dashboard import *

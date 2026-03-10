@@ -1,0 +1,70 @@
+.dashboard-title {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+}
+
+.stat-card {
+    padding: 25px;
+    border-radius: 15px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    transition: 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-8px);
+}
+
+.stat-card h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    opacity: 0.9;
+}
+
+.stat-card h2 {
+    font-size: 32px;
+    font-weight: 600;
+}
+
+/* Different Colors */
+.members {
+    background: linear-gradient(135deg, #6366f1, #818cf8);
+}
+
+.flats {
+    background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+}
+
+.complaints {
+    background: linear-gradient(135deg, #f59e0b, #fbbf24);
+}
+
+.maintenance {
+    background: linear-gradient(135deg, #ef4444, #f87171);
+}
+
+/* Notice Section */
+.notice-board {
+    margin-top: 40px;
+}
+
+.notice-item {
+    padding: 15px;
+    border-left: 4px solid #6366f1;
+    margin-bottom: 15px;
+    background: white;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.notice-item:hover {
+    transform: scale(1.02);
+}

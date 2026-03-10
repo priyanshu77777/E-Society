@@ -1,0 +1,89 @@
+.page-title {
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 25px;
+}
+
+/* Table */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.table th {
+    text-align: left;
+    padding: 14px;
+    background: #f1f5f9;
+    font-weight: 500;
+}
+
+.table td {
+    padding: 14px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.table tr:hover {
+    background: #f8fafc;
+}
+
+/* Status Badges */
+.badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.badge-pending {
+    background: rgba(245, 158, 11, 0.2);
+    color: #b45309;
+}
+
+.badge-resolved {
+    background: rgba(34, 197, 94, 0.2);
+    color: #15803d;
+}
+
+/* Form Styling */
+.form-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    transition: 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #6366f1;
+    box-shadow: 0 0 10px rgba(99,102,241,0.2);
+}
+
+/* Search Bar */
+.search-bar {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.search-bar input,
+.search-bar select {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}

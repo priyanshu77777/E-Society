@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3 class="mb-4">Add Flat</h3>
+
+<div class="card p-4">
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit" class="btn btn-success">
+            Create Flat
+        </button>
+
+        <a href="{% url 'flat_list' %}" 
+           class="btn btn-secondary">
+            Cancel
+        </a>
+    </form>
+</div>
+
+{% endblock %}

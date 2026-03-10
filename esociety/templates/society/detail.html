@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3 class="mb-4">Society Details</h3>
+
+<div class="card p-4">
+
+    <p><strong>Name:</strong> {{ society.name }}</p>
+    <p><strong>City:</strong> {{ society.city }}</p>
+    <p><strong>Address:</strong> {{ society.address }}</p>
+    <p><strong>Pincode:</strong> {{ society.pincode }}</p>
+    <p><strong>Created At:</strong> {{ society.created_at }}</p>
+
+    <a href="{% url 'society_edit' society.id %}" 
+       class="btn btn-warning">
+        Edit Details
+    </a>
+
+</div>
+
+{% endblock %}

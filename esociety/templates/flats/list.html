@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="d-flex justify-content-between mb-3">
+    <h3>Flats</h3>
+    <a href="{% url 'flat_create' %}" class="btn btn-primary">
+        Add Flat
+    </a>
+</div>
+
+<div class="card p-3">
+    <table class="table table-bordered table-hover">
+        <thead class="table-light">
+            <tr>
+                <th>Flat Number</th>
+                <th>Block</th>
+                <th>Owner</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for flat in flats %}
+            <tr>
+                <td>{{ flat.flat_number }}</td>
+                <td>{{ flat.block }}</td>
+                <td>{{ flat.owner }}</td>
+                <td>
+                    {% if flat.is_occupied %}
+                        <span class="badge bg-success">Occupied</span>
+                    {% else %}
+                        <span class="badge bg-secondary">Vacant</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{% url 'flat_update' flat.id %}" 
+                       class="btn btn-sm btn-warning">
+                        Edit
+                    </a>
+
+                    <a href="{% url 'flat_delete' flat.id %}" 
+                       class="btn btn-sm btn-danger"
+                       onclick="return confirm('Are you sure you want to delete this flat?')">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="text-center">
+                    No flats available
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

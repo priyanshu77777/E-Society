@@ -1,0 +1,15 @@
+.visitor-badge-in {
+    background: #d1fae5;
+    color: #065f46;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+}
+
+.visitor-badge-out {
+    background: #fee2e2;
+    color: #991b1b;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+}

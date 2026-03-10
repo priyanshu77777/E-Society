@@ -1,0 +1,21 @@
+.table-container {
+    background: #fff;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+}
+
+.table thead {
+    background: #111827;
+    color: white;
+}
+
+.table tbody tr:hover {
+    background: #f3f4f6;
+}
+
+.search-box {
+    border-radius: 12px;
+    padding: 10px 15px;
+    border: 1px solid #e5e7eb;
+}

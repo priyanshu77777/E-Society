@@ -1,0 +1,15 @@
+.notice-card {
+    padding: 25px;
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+}
+
+.notice-card h5 {
+    font-weight: 600;
+}
+
+.notice-expiry {
+    font-size: 14px;
+    color: #6b7280;
+}

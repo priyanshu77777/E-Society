@@ -19,7 +19,7 @@ def login_view(request):
 
             # Role-based redirect
             if user.role == "SUPER_ADMIN":
-                return redirect("superadmin_dashboard")
+                return redirect("super_admin_dashboard")
 
             elif user.role == "SOCIETY_ADMIN":
                 return redirect("society_admin_dashboard")

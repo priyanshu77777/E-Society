@@ -1,0 +1,64 @@
+/* FORM CONTAINER */
+.form-container {
+    max-width: 600px;
+    margin: auto;
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+    animation: fadeSlide 0.5s ease;
+}
+
+/* FORM HEADING */
+.form-container h3 {
+    font-weight: 600;
+    margin-bottom: 25px;
+}
+
+/* INPUT FIELDS */
+.form-control,
+.form-select {
+    border-radius: 12px;
+    padding: 12px 15px;
+    border: 1px solid #e2e8f0;
+    transition: 0.3s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99,102,241,0.2);
+}
+
+/* LABELS */
+label {
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+/* SUBMIT BUTTON */
+.btn-submit {
+    background: linear-gradient(135deg, #6366f1, #4f46e5);
+    border: none;
+    padding: 12px;
+    border-radius: 12px;
+    color: white;
+    font-weight: 500;
+    transition: 0.3s ease;
+}
+
+.btn-submit:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(99,102,241,0.3);
+}
+
+/* CANCEL BUTTON */
+.btn-cancel {
+    border-radius: 12px;
+}
+
+/* FORM ANIMATION */
+@keyframes fadeSlide {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}

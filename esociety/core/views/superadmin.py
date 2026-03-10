@@ -9,7 +9,7 @@ User = get_user_model()
 
 
 # 🔐 Superadmin access check decorator
-def superadmin_required(view_func):
+def super_admin_required(view_func):
     @wraps(view_func)
     def wrapper(request, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -24,8 +24,8 @@ def superadmin_required(view_func):
 
 # 📊 Dashboard
 @login_required
-@superadmin_required
-def superadmin_dashboard(request):
+@super_admin_required
+def super_admin_dashboard(request):
     total_societies = Society.objects.count()
     total_admins = User.objects.filter(role="SOCIETY_ADMIN").count()
 
@@ -38,7 +38,7 @@ def superadmin_dashboard(request):
 
 # 📋 Society List
 @login_required
-@superadmin_required
+@super_admin_required
 def society_list(request):
     societies = Society.objects.all()
     return render(request, "superadmin/society_list.html", {"societies": societies})
@@ -46,7 +46,7 @@ def society_list(request):
 
 # ➕ Add Society
 @login_required
-@superadmin_required
+@super_admin_required
 def add_society(request):
     if request.method == "POST":
         name = request.POST.get("name")
@@ -67,7 +67,7 @@ def add_society(request):
 
 # ✏ Edit Society
 @login_required
-@superadmin_required
+@super_admin_required
 def edit_society(request, pk):
     society = get_object_or_404(Society, pk=pk)
 
@@ -85,7 +85,7 @@ def edit_society(request, pk):
 
 # ❌ Delete Society
 @login_required
-@superadmin_required
+@super_admin_required
 def delete_society(request, pk):
     society = get_object_or_404(Society, pk=pk)
     society.delete()
@@ -95,7 +95,7 @@ def delete_society(request, pk):
 
 # 🔎 Society Detail
 @login_required
-@superadmin_required
+@super_admin_required
 def society_detail(request, pk):
     society = get_object_or_404(Society, pk=pk)
     return render(request, "superadmin/society_detail.html", {"society": society})

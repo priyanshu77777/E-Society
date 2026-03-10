@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3 class="mb-4">Maintenance Payment History</h3>
+
+<div class="card p-3">
+    <table class="table table-bordered">
+        <thead class="table-light">
+            <tr>
+                <th>Flat</th>
+                <th>Amount</th>
+                <th>Paid Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for bill in paid_bills %}
+            <tr>
+                <td>{{ bill.flat }}</td>
+                <td>₹ {{ bill.amount }}</td>
+                <td>{{ bill.paid_at }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3" class="text-center">No payment history available</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
