@@ -1,14 +1,14 @@
 from django.shortcuts import render
 from django.contrib.auth import get_user_model
 from core.models import Society, Flat, Member
-from core.decorators import superadmin_required
+from core.decorators import super_admin_required
 from django.contrib.auth.decorators import login_required
 
 User = get_user_model()
 
 
 @login_required
-@superadmin_required
+@super_admin_required
 def super_admin_dashboard(request):
 
     total_societies = Society.objects.count()

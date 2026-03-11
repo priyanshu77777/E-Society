@@ -1,4 +1,5 @@
 {% load static %}
+<a href="{% url 'logout' %}">Logout</a>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,7 +32,9 @@
     </div>
 
     <ul>
-        <li><a href="{% url 'dashboard' %}"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
+        <li><a href="{% url 'resident_dashboard' %}"><i class="bi bi-speedometer2"></i> Resident Dashboard</a></li>
+        <li><a href="{% url 'society_admin_dashboard' %}"><i class="bi bi-speedometer2"></i> Society Admin Dashboard</a></li>
+        <li><a href="{% url 'super_admin_dashboard' %}"><i class="bi bi-speedometer2"></i> Super Admin  Dashboard</a></li>
         <li><a href="{% url 'member_list' %}"><i class="bi bi-people"></i> Members</a></li>
         <li><a href="{% url 'flat_list' %}"><i class="bi bi-building"></i> Flats</a></li>
         <li><a href="{% url 'maintenance_list' %}"><i class="bi bi-cash-stack"></i> Maintenance</a></li>
@@ -41,7 +44,7 @@
         <li><a href="{% url 'payment_list' %}"><i class="bi bi-credit-card"></i> Payments</a></li>
 
         {% if user.is_superuser %}
-        <li><a href="{% url 'society_list' %}"><i class="bi bi-globe"></i> Societies</a></li>
+        <li><a href="{% url 'society_detail' %}"><i class="bi bi-globe"></i> Societies</a></li>
         {% endif %}
     </ul>
 </div>

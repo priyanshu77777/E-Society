@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Q
-from core.decorators import resident_required, societyadmin_required
+from core.decorators import resident_required, society_admin_required
 from core.models import Complaint, Flat
 
 
@@ -60,7 +60,7 @@ def my_complaints(request):
 # =====================================================
 
 @login_required
-@societyadmin_required
+@society_admin_required
 def complaint_list(request):
 
     complaints = Complaint.objects.filter(
@@ -89,7 +89,7 @@ def complaint_list(request):
 
 
 @login_required
-@societyadmin_required
+@society_admin_required
 def complaint_update(request, complaint_id):
 
     complaint = get_object_or_404(

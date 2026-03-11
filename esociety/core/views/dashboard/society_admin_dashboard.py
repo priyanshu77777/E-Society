@@ -1,12 +1,12 @@
 from django.shortcuts import render
 from django.utils import timezone
 from core.models import Flat, Member, Complaint, Maintenance, Notice
-from core.decorators import societyadmin_required
+from core.decorators import society_admin_required
 from django.contrib.auth.decorators import login_required
 
 
 @login_required
-@societyadmin_required
+@society_admin_required
 def society_admin_dashboard(request):
 
     society = request.user.society
