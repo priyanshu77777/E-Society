@@ -1,0 +1,35 @@
+{% extends "admin/base_admin.html" %}
+
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+
+    <!-- SELECT RESIDENT -->
+    <label>Select Resident</label>
+    <select name="user_id" required>
+        <option value="">-- Select Resident --</option>
+        {% for user in users %}
+            <option value="{{ user.id }}">
+                {{ user.email }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <br><br>
+
+    <!-- SELECT FLAT -->
+    <label>Select Flat</label>
+    <select name="flat_id" required>
+        <option value="">-- Select Flat --</option>
+        {% for flat in flats %}
+            <option value="{{ flat.id }}">
+                {{ flat.block_name }}-{{ flat.flat_number }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <br><br>
+
+    <button type="submit">Assign Flat</button>
+</form>
+{% endblock %}

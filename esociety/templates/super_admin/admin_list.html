@@ -1,0 +1,30 @@
+{% extends "super_admin/base_super_admin.html" %}
+{% block content %}
+
+<h2>All Admins</h2>
+
+{% for admin in admins %}
+<div class="card">
+
+    <h3>{{ admin.email }}</h3>
+
+    <p>
+        Society:
+        {% if admin.society %}
+            {{ admin.society.name }}
+        {% else %}
+            <span style="color:red;">Not Assigned</span>
+        {% endif %}
+    </p>
+
+    <!-- 🔥 THIS IS STEP 3 -->
+    <a href="{% url 'edit_admin' admin.id %}">
+        <button>Assign Society</button>
+    </a>
+
+</div>
+{% empty %}
+    <p>No admins found.</p>
+{% endfor %}
+
+{% endblock %}

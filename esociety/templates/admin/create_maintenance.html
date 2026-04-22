@@ -1,0 +1,16 @@
+{% extends "admin/base_admin.html" %}
+
+{% block content %}
+<h2>Create Maintenance</h2>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <input type="text" name="month" placeholder="Month (April 2026)" required>
+    <input type="number" name="amount" placeholder="Amount" required>
+    <input type="date" name="due_date" required>
+
+    <button type="submit">Create</button>
+</form>
+
+{% endblock %}

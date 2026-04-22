@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Add Complaint</h2>
+
+<div class="card">
+    <form method="POST">
+        {% csrf_token %}
+
+        <input type="text" name="title" placeholder="Title" required style="width:100%; padding:10px;"><br><br>
+
+        <textarea name="description" placeholder="Description" required style="width:100%; padding:10px;"></textarea><br><br>
+
+        <button style="padding:10px; background:#38bdf8; border:none; color:white;">
+            Submit
+        </button>
+    </form>
+</div>
+
+{% endblock %}

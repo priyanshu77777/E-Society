@@ -1,0 +1,25 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/admin.css' %}">
+
+<div class="container">
+    <h2>Add Notice</h2>
+
+    <div class="card">
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" name="title" placeholder="Title" required>
+            <input type="date" name="expiry_date" required>
+            <textarea name="content" placeholder="Content" required></textarea>
+            <button type="submit">Add Notice</button>
+        </form>
+    </div>
+
+    <h2>All Notices</h2>
+
+    {% for notice in notices %}
+    <div class="card">
+        <h3>{{ notice.title }}</h3>
+        <p>{{ notice.content }}</p>
+    </div>
+    {% endfor %}
+</div>

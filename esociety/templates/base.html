@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HabitaFlow</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: #020617;
+            color: white;
+        }
+
+        .dashboard {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 220px;
+            background: linear-gradient(180deg, #0f172a, #020617);
+            padding: 20px;
+        }
+
+        .sidebar h2 {
+            margin-bottom: 30px;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 12px;
+            margin-bottom: 10px;
+            color: #cbd5f5;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .sidebar a.active {
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            color: white;
+        }
+
+        /* CONTENT */
+        .content {
+            flex: 1;
+            padding: 30px;
+        }
+
+        /* HEADER */
+        .header {
+            background: #f1f5f9;
+            color: black;
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .form-container {
+        max-width: 600px;
+        margin: 60px auto;
+        background: #111827;
+        padding: 30px;
+        border-radius: 20px;
+        color: white;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+
+        .form-container h2 {
+        margin-bottom: 20px;
+        text-align: center;
+        }
+
+        .form-group {
+        margin-bottom: 15px;
+        }
+
+        .form-group label {
+        font-size: 14px;
+        margin-bottom: 5px;
+        display: block;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            outline: none;
+            background: #1f2937;
+            color: white;
+        }
+
+        textarea {
+            height: 120px;
+            resize: none;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .ai-btn {
+            flex: 1;
+            background: linear-gradient(45deg, #6366f1, #06b6d4);
+            border: none;
+            padding: 10px;
+            border-radius: 20px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .submit-btn {
+            flex: 1;
+            background: #22c55e;
+            border: none;
+            padding: 10px;
+            border-radius: 20px;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }         
+
+
+        #aiHint {
+            display: block;
+            margin-top: 5px;
+            color: #9ca3af;
+            font-size: 13px;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 60px auto;
+            background: #111827;
+            padding: 30px;
+            border-radius: 20px;
+            color: white;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+
+        .form-container h2 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            outline: none;
+            background: #1f2937;
+            color: white;
+        }
+
+        textarea {
+            height: 120px;
+            resize: none;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .ai-btn {
+            flex: 1;
+            background: linear-gradient(45deg, #6366f1, #06b6d4);
+            border: none;
+            padding: 10px;
+            border-radius: 20px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .submit-btn {
+            flex: 1;
+            background: #22c55e;
+            border: none;
+            padding: 10px;
+            border-radius: 20px;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        #aiHint {
+            display: block;
+            margin-top: 5px;
+            color: #9ca3af;
+            font-size: 13px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <h2>HabitaFlow</h2>
+
+        <a href="{% url 'resident_dashboard' %}">🏠 Dashboard</a>
+        <a href="{% url 'add_complaint' %}">➕ Add Complaint</a>
+        <a href="{% url 'payments' %}">💳 Payments</a>
+        <a href="{% url 'profile' %}">👤 Profile</a>
+        <a href="{% url 'logout' %}">🚪 Logout</a>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content">
+
+        <div class="header">
+            <div>Welcome 👋</div>
+            <div>Resident Panel</div>
+        </div>
+
+        {% block content %}
+        {% endblock %}
+
+    </div>
+
+</div>
+
+</body>
+</html>

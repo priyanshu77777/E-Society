@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Panel</title>
+
+    <style>
+
+/* ===== GLOBAL ===== */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #020617;
+    color: white;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+    width: 240px;
+    height: 100vh;
+    position: fixed;
+    background: #020617;
+    padding: 20px;
+    border-right: 1px solid #0f172a;
+}
+
+.sidebar h2 {
+    color: #38bdf8;
+    margin-bottom: 30px;
+}
+
+.sidebar a {
+    display: block;
+    color: #cbd5f5;
+    text-decoration: none;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    background: #0f172a;
+    color: white;
+}
+
+/* ===== CONTENT ===== */
+.content {
+    margin-left: 260px;
+    padding: 25px;
+}
+
+/* ===== TOP HEADER (MATCH RESIDENT) ===== */
+.top-header {
+    background: #0f172a;
+    padding: 14px 20px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.top-header .welcome {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.top-header span {
+    font-size: 18px;
+}
+
+/* ===== PAGE TITLE ===== */
+.title {
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+/* ===== CARDS (MATCH RESIDENT EXACT FEEL) ===== */
+.cards {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.card {
+    flex: 1;
+    background: #0f172a;
+    padding: 22px;
+    border-radius: 18px;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+}
+
+.card h3 {
+    font-size: 15px;
+    color: #94a3b8;
+}
+
+.card p {
+    font-size: 24px;
+    font-weight: 600;
+    margin-top: 5px;
+}
+
+/* ===== COMPLAINT BOX ===== */
+.complaint {
+    background: #0f172a;
+    padding: 18px;
+    border-radius: 16px;
+    margin-bottom: 15px;
+    transition: 0.3s;
+}
+
+.complaint:hover {
+    background: #111827;
+}
+
+/* ===== STATUS ===== */
+.pending {
+    color: #facc15;
+    font-weight: 500;
+}
+
+.resolved {
+    color: #22c55e;
+    font-weight: 500;
+}
+
+/* ===== BUTTONS (MATCH RESIDENT) ===== */
+button {
+    padding: 8px 16px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(135deg, #06b6d4, #3b82f6);
+    color: white;
+    font-size: 13px;
+    margin-top: 8px;
+    transition: 0.3s;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+/* ===== SMOOTH LOAD ===== */
+body {
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>Admin Panel</h2>
+
+    <a href="{% url 'admin_dashboard' %}">🏠 Dashboard</a>
+    <a href="{% url 'add_notice' %}">📢 Add Notice</a>
+    <a href="{% url 'manage_payments' %}">💳 Manage Payments</a>
+    <a href="{% url 'create_flat' %}">🏢 Create Flat</a>
+    <a href="{% url 'assign_flat' %}">🔗 Assign Flat</a>
+    <a href="{% url 'logout' %}">🚪 Logout</a>
+    <a href="{% url 'create_maintenance' %}">+ Create Maintenance</a>
+    
+</div>
+
+<div class="content">
+    <div class="top-header">
+        <div class="welcome">
+            Welcome <span>👋</span>
+        </div>
+    <div>
+        Admin Panel
+    </div>
+    </div>
+    {% block content %}{% endblock %}
+</div>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+{% extends "super_admin/base_super_admin.html" %}
+
+{% block content %}
+
+<h1>Assign Society</h1>
+
+<div class="card">
+
+    <h3>{{ admin.email }}</h3>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>Select Society</label>
+        <select name="society" required>
+            {% for s in societies %}
+                <option value="{{ s.id }}"
+                    {% if admin.society and admin.society.id == s.id %}
+                        selected
+                    {% endif %}
+                >
+                    {{ s.name }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <button>Update</button>
+    </form>
+
+</div>
+
+{% endblock %}

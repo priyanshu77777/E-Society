@@ -1,0 +1,80 @@
+{% extends "super_admin/base_super_admin.html" %}
+{% block content %}
+
+<!-- 🔥 WELCOME -->
+<div class="card fade-in">
+    <h2>🚀 Welcome, Super Admin</h2>
+    <p>
+        You are managing 
+        <b>{{ total_societies }}</b> societies,
+        <b>{{ total_admins }}</b> admins and
+        <b>{{ total_users }}</b> users.
+    </p>
+</div>
+
+<!-- 📊 STATS -->
+<div class="grid fade-in">
+
+    <a href="{% url 'society_list' %}">
+        <div class="card stat-card">
+            <h3>🏢 Societies</h3>
+            <h1>{{ total_societies }}</h1>
+            <p>Click to view all</p>
+        </div>
+    </a>
+
+    <a href="{% url 'admin_list' %}">
+        <div class="card stat-card">
+            <h3>👨‍💼 Admins</h3>
+            <h1>{{ total_admins }}</h1>
+            <p>Click to view</p>
+        </div>
+    </a>
+
+    <div class="card stat-card">
+        <h3>👥 Users</h3>
+        <h1>{{ total_users }}</h1>
+        <p>Total platform users</p>
+    </div>
+
+</div>
+
+<!-- 📦 LOWER GRID -->
+<div class="grid fade-in">
+
+    <!-- 🕒 Recent Societies -->
+    <div class="card">
+        <h3>🕒 Recent Societies</h3>
+        {% for s in recent_societies %}
+            <p>🏢 {{ s.name }}</p>
+        {% empty %}
+            <p>No societies yet</p>
+        {% endfor %}
+    </div>
+
+    <!-- 👨‍💼 Recent Admins -->
+    <div class="card">
+        <h3>👨‍💼 Recent Admins</h3>
+        {% for a in recent_admins %}
+            <p>{{ a.email }} → {{ a.society.name }}</p>
+        {% empty %}
+            <p>No admins yet</p>
+        {% endfor %}
+    </div>
+
+    <!-- ⚡ Quick Actions -->
+    <div class="card">
+        <h3>⚡ Quick Actions</h3>
+
+        <a href="{% url 'create_society' %}">
+            <button>+ Create Society</button>
+        </a>
+
+        <a href="{% url 'create_admin' %}">
+            <button>+ Create Admin</button>
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}

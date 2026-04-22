@@ -1,0 +1,31 @@
+{% extends "admin/base_admin.html" %}
+
+{% block content %}
+
+<div class="title">Create Flat</div>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <input type="text" name="block_name" placeholder="Block (A/B/C)" required>
+    
+    <input type="text" name="flat_number" placeholder="Flat Number (101)" required>
+
+    <button type="submit">Add Flat</button>
+</form>
+
+<br>
+
+<h3>Existing Flats</h3>
+
+{% for flat in flats %}
+    <div class="complaint">
+        Flat {{ flat.block_name }}-{{ flat.flat_number }} ({{ flat.status }})
+    </div>
+
+<option value="{{ flat.id }}">
+    {{ flat.block_name }}-{{ flat.flat_number }}
+</option>
+{% endfor %}
+
+{% endblock %}

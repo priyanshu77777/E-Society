@@ -1,0 +1,98 @@
+{% extends "admin/base_admin.html" %}
+
+{% block content %}
+
+<h2 style="margin-bottom:20px;">
+    Welcome, {{ request.user.email }}
+</h2>
+
+<!-- CARDS -->
+<div style="display:flex; gap:20px; margin-bottom:20px;">
+
+    <div class="card">
+        <h3>📋 Total</h3>
+        <p>{{ total }}</p>
+    </div>
+
+    <div class="card">
+        <h3>⏳ Pending</h3>
+        <p>{{ pending }}</p>
+    </div>
+
+    <div class="card">
+        <h3>✅ Resolved</h3>
+        <p>{{ resolved }}</p>
+    </div>
+
+</div>
+
+<!-- ACTION BUTTONS -->
+<div style="margin-bottom:20px;">
+    <a href="{% url 'add_notice' %}">
+        <button>+ Add Notice</button>
+    </a>
+
+    <a href="{% url 'manage_payments' %}">
+        <button>💳 Manage Payments</button>
+    </a>
+
+    
+</div>
+
+<!-- MAIN GRID (LIKE RESIDENT) -->
+<div style="display:flex; gap:20px;">
+
+    <!-- LEFT: COMPLAINTS -->
+    <div style="flex:2; max-height:500px; overflow-y:auto;">
+
+        <h3>Manage Complaints</h3>
+
+        <!-- FILTER -->
+        <div style="margin-bottom:15px;">
+            <a href="?"><button>All</button></a>
+            <a href="?status=Pending"><button>Pending</button></a>
+            <a href="?status=Resolved"><button>Resolved</button></a>
+        </div>
+
+        {% for complaint in complaints %}
+        <div class="complaint">
+            <h4>{{ complaint.title }}</h4>
+            <p>{{ complaint.description }}</p>
+
+            <small>User: {{ complaint.user.email }}</small><br><br>
+
+            Status:
+            {% if complaint.status == "Pending" %}
+                <span class="pending">● Pending</span>
+
+                <br><br>
+                <a href="{% url 'update_status' complaint.id %}">
+                    <button>Mark as Resolved</button>
+                </a>
+            {% else %}
+                <span class="resolved">● Resolved</span>
+            {% endif %}
+        </div>
+        {% endfor %}
+
+    </div>
+
+    <!-- RIGHT: NOTICES -->
+    <div style="flex:1;">
+        <h3>Notices</h3>
+
+        {% if notices %}
+            {% for notice in notices %}
+                <div class="complaint">
+                    <strong>{{ notice.title }}</strong><br>
+                    <p>{{ notice.content }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No notices</p>
+        {% endif %}
+    </div>
+
+</div>
+
+{% endblock %}

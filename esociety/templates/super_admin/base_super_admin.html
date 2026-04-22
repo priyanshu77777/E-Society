@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Super Admin</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===== BACKGROUND ===== */
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(circle at top, #0f172a, #020617);
+            color: #e2e8f0;
+        }
+
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            width: 260px;
+            height: 100vh;
+            position: fixed;
+            background: rgba(2,6,23,0.9);
+            backdrop-filter: blur(20px);
+            padding: 25px;
+            border-right: 1px solid #1e293b;
+        }
+
+        .sidebar h2 {
+            color: #38bdf8;
+            margin-bottom: 30px;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 12px;
+            color: #94a3b8;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+            color: black;
+            transform: translateX(5px);
+        }
+
+        /* ===== CONTENT ===== */
+        .content {
+            margin-left: 270px;
+            padding: 30px;
+        }
+
+        /* ===== CARDS ===== */
+        .card {
+            background: linear-gradient(145deg, #1e293b, #0f172a);
+            padding: 25px;
+            border-radius: 18px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(56,189,248,0.2), transparent);
+            transform: rotate(25deg);
+            top: -100%;
+            left: -100%;
+            transition: 0.5s;
+        }
+
+        .card:hover::before {
+            top: 100%;
+            left: 100%;
+        }   
+
+        .card:hover {
+            transform: translateY(-8px);
+        }
+
+        /* ===== GRID ===== */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        /* ===== BUTTON ===== */
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        /* ===== INPUT ===== */
+        input, select {
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            margin: 8px 0;
+            width: 100%;
+        }
+
+        /* ===== ANIMATION ===== */
+        .fade-in {
+            animation: fadeIn 0.6s ease;
+        }   
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        /* LIGHT MODE */
+        .light-mode {
+            background: #f1f5f9;
+            color: #0f172a;
+        }
+
+        .light-mode .card {
+            background: white;
+            color: black;
+        }
+
+        .light-mode .sidebar {
+            background: #e2e8f0;
+        }
+
+        .theme-btn {
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .stat-card {
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(56,189,248,0.6);
+        }
+
+        /* Better spacing */
+        .grid {
+            margin-top: 20px;
+        }
+
+        /* Smooth animation */
+        .card {
+            animation: fadeIn 0.6s ease;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="sidebar">
+    <h2>⚡ Super Admin</h2>
+
+    <a href="{% url 'super_admin_dashboard' %}">🏠 Dashboard</a>
+    <a href="{% url 'create_society' %}">🏢 Create Society</a>
+    <a href="{% url 'create_admin' %}">👨‍💼 Create Admin</a>
+    <a href="{% url 'society_list' %}">📋 View Societies</a>
+    <a href="{% url 'admin_list' %}">👥 View Admins</a>
+    <a href="{% url 'logout' %}">🚪 Logout</a>
+
+    <button onclick="toggleTheme()" class="theme-btn">
+    🌙 Toggle Mode
+    </button>
+</div>
+
+<script>
+function toggleTheme() {
+    document.body.classList.toggle("light-mode");
+
+    if (document.body.classList.contains("light-mode")) {
+        localStorage.setItem("theme", "light");
+    } else {
+        localStorage.setItem("theme", "dark");
+    }
+}
+
+// Load saved theme
+window.onload = function () {
+    if (localStorage.getItem("theme") === "light") {
+        document.body.classList.add("light-mode");
+    }
+};
+</script>
+
+<div class="content">
+    {% block content %}{% endblock %}
+</div>
+
+</body>
+</html>

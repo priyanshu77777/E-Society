@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="form-container">
+
+  <h2>🚨 Raise Complaint</h2>
+
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <!-- CATEGORY -->
+    <div class="form-group">
+      <label>Category</label>
+      <select name="category" id="category" onchange="autoTitle()" required>
+        <option value="">Select Category</option>
+        <option>Water</option>
+        <option>Electricity</option>
+        <option>Lift</option>
+        <option>Security</option>
+        <option>Cleanliness</option>
+      </select>
+    </div>
+
+    <!-- TITLE -->
+    <div class="form-group">
+      <label>Complaint Title</label>
+      <input type="text" name="title" id="title" placeholder="Enter title..." required>
+    </div>
+
+    <!-- DESCRIPTION -->
+    <div class="form-group">
+      <label>Description</label>
+      <textarea name="description" id="desc" placeholder="Describe your issue..." required></textarea>
+      <small id="aiHint"></small>
+    </div>
+
+    <!-- IMAGE -->
+    <div class="form-group">
+      <label>Upload Image (optional)</label>
+      <input type="file" name="image">
+    </div>
+
+    <!-- BUTTONS -->
+    <div class="btn-group">
+      <button type="button" onclick="useAI()" class="ai-btn">✨ Improve with AI</button>
+      <button type="submit" class="submit-btn">Submit</button>
+    </div>
+
+  </form>
+
+</div>
+
+<!-- 🔥 ALL JS IS HERE (NO NEED ANYWHERE ELSE) -->
+<script>
+
+// Auto fill title
+function autoTitle() {
+  let cat = document.getElementById("category").value;
+  document.getElementById("title").value = cat + " Issue";
+}
+
+// Improve with AI
+function useAI() {
+  let text = document.getElementById("desc").value;
+
+  if (text.trim() === "") {
+    alert("Please write something first");
+    return;
+  }
+
+  fetch("/improve-ai/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: "text=" + encodeURIComponent(text)
+  })
+  .then(res => res.json())
+  .then(data => {
+
+    let improved = `
+Respected Management,
+
+${data.result}
+
+Kindly resolve this issue as soon as possible.
+
+Thank you.
+    `;
+
+    document.getElementById("desc").value = improved;
+  });
+}
+
+
+// 🔥 AUTO AI SUGGESTION
+let timeout = null;
+
+document.addEventListener("DOMContentLoaded", function () {
+  const desc = document.getElementById("desc");
+
+  desc.addEventListener("input", function() {
+    clearTimeout(timeout);
+
+    let text = this.value;
+
+    if (text.length < 15) {
+      document.getElementById("aiHint").innerText = "";
+      return;
+    }
+
+    timeout = setTimeout(() => {
+      fetch("/improve-ai/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: "text=" + encodeURIComponent(text)
+      })
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("aiHint").innerText =
+          "💡 Suggestion: " + data.result;
+      });
+    }, 1200);
+  });
+});
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "super_admin/base_super_admin.html" %}
+{% block content %}
+
+<h2>All Societies</h2>
+
+{% for s in societies %}
+<div class="card">
+    <h3>{{ s.name }}</h3>
+
+    <a href="{% url 'delete_society' s.id %}" 
+       onclick="return confirm('Delete this society?')">
+        <button style="background:red;">Delete</button>
+    </a>
+</div>
+{% endfor %}
+
+{% endblock %}

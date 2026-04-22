@@ -1,0 +1,22 @@
+{% extends "super_admin/base_super_admin.html" %}
+{% block content %}
+
+<div class="card fade-in">
+    <h2>Create Admin</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required>
+
+        <select name="society">
+            {% for s in societies %}
+            <option value="{{ s.id }}">{{ s.name }}</option>
+            {% endfor %}
+        </select>
+
+        <button>Create Admin</button>
+    </form>
+</div>
+
+{% endblock %}
